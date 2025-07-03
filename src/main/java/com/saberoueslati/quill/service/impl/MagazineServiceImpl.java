@@ -22,6 +22,11 @@ public class MagazineServiceImpl implements MagazineService {
     }
 
     @Override
+    public List<Magazine> addMagazines(List<Magazine> magazines) {
+        return magazineRepository.saveAll(magazines);
+    }
+
+    @Override
     public List<Magazine> getAllMagazines() {
         return magazineRepository.findAll();
     }

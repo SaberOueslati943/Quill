@@ -11,4 +11,6 @@ public interface BookService {
     Book getBookByIsbn(String isbn);
 
     List<Book> getAllBooks();
+
+    List<Book> addBooks(List<Book> books);
 }

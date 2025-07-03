@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PublicationsServiceImpl implements PublicationService {
+public class PublicationServiceImpl implements PublicationService {
 
     private final PublicationRepository publicationRepository;
 
-    public PublicationsServiceImpl(PublicationRepository publicationRepository) {
+    public PublicationServiceImpl(PublicationRepository publicationRepository) {
         this.publicationRepository = publicationRepository;
     }
 
@@ -24,17 +24,7 @@ public class PublicationsServiceImpl implements PublicationService {
     }
 
     @Override
-    public Page<Publication> searchPublicationsByTitle(String title, Pageable pageable) {
-        return publicationRepository.findByTitleContainingIgnoreCase(title, pageable);
-    }
-
-    @Override
-    public List<Publication> getAllPublications() {
-        return publicationRepository.findAll();
-    }
-
-    @Override
-    public Publication addPublication(Publication publication) {
-        return publicationRepository.save(publication);
+    public List<Publication> searchPublicationsByTitle(String title) {
+        return publicationRepository.findByTitleContainingIgnoreCase(title);
     }
 }

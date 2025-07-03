@@ -6,6 +6,7 @@ import com.saberoueslati.quill.service.AuthorService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class AuthorServiceImpl implements AuthorService {
@@ -16,6 +17,11 @@ public class AuthorServiceImpl implements AuthorService {
         this.authorRepository = authorRepository;
     }
 
+    @Override
+    public Author getAuthorById(Long authorId) {
+        return authorRepository.getAuthorById(authorId)
+                .orElseThrow(() -> new NoSuchElementException("Author not found with id: " + authorId));
+    }
 
     @Override
     public Author addAuthor(Author author) {
@@ -25,5 +31,10 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public List<Author> getAllAuthors() {
         return authorRepository.findAll();
+    }
+
+    @Override
+    public List<Author> addAuthors(List<Author> authors) {
+        return authorRepository.saveAll(authors);
     }
 }

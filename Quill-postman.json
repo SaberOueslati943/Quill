@@ -1,0 +1,431 @@
+{
+	"info": {
+		"_postman_id": "fd60d691-9b8f-4b8e-8875-a297c812dc8b",
+		"name": "Quill API Extended",
+		"description": "Add single, bulk and failed validation test cases for Authors, Books, Magazines",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34736960"
+	},
+	"item": [
+		{
+			"name": "Add Author - Single Valid",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"George Orwell\",\n  \"birthDate\": \"1965-07-31\",\n  \"nationality\": \"British\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/authors",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"authors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Author - Bulk Valid",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n  {\n    \"name\": \"George Orwell\",\n    \"birthDate\": \"1903-06-25\",\n    \"nationality\": \"British\"\n  },\n  {\n    \"name\": \"Isaac Asimov\",\n    \"birthDate\": \"1920-01-02\",\n    \"nationality\": \"American\"\n  }\n]"
+				},
+				"url": {
+					"raw": "localhost:8080/authors/bulk",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"authors",
+						"bulk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Author - Bulk Invalid (Missing name)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n  {\n    \"name\": \"\",\n    \"birthDate\": \"1903-06-25\",\n    \"nationality\": \"British\"\n  },\n  {\n    \"birthDate\": \"1920-01-02\",\n    \"nationality\": \"American\"\n  }\n]"
+				},
+				"url": {
+					"raw": "localhost:8080/authors/bulk",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"authors",
+						"bulk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Book - Single Valid",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Foundation\",\n  \"publicationDate\": \"1951-06-01\",\n  \"isbn\": \"9780553293357\",\n  \"authorId\": 2\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/books",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Book - Bulk Valid",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n  {\n    \"title\": \"I, Robot\",\n    \"publicationDate\": \"1950-12-02\",\n    \"isbn\": \"9780553382563\",\n    \"authorId\": 2\n  },\n  {\n    \"title\": \"1984\",\n    \"publicationDate\": \"1949-06-08\",\n    \"isbn\": \"9780451524935\",\n    \"authorId\": 3\n  }\n]"
+				},
+				"url": {
+					"raw": "localhost:8080/books/bulk",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"books",
+						"bulk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Book - Bulk Invalid (Missing isbn)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n  {\n    \"title\": \"The Martian\",\n    \"publicationDate\": \"2011-09-27\",\n    \"isbn\": \"\",\n    \"authorId\": 4\n  }\n]"
+				},
+				"url": {
+					"raw": "localhost:8080/books/bulk",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"books",
+						"bulk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Magazine - Single Valid",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Science Weekly\",\n  \"publicationDate\": \"2025-01-15\",\n  \"issueNumber\": 15,\n  \"authorIds\": [1, 2]\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/magazines",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"magazines"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Magazine - Bulk Valid",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n  {\n    \"title\": \"Nature\",\n    \"publicationDate\": \"2025-03-01\",\n    \"issueNumber\": 45,\n    \"authorIds\": [1]\n  },\n  {\n    \"title\": \"Tech Today\",\n    \"publicationDate\": \"2025-04-10\",\n    \"issueNumber\": 5,\n    \"authorIds\": [2, 3]\n  }\n]"
+				},
+				"url": {
+					"raw": "localhost:8080/magazines/bulk",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"magazines",
+						"bulk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Magazine - Bulk Invalid (Empty authors list)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n  {\n    \"title\": \"Invalid Magazine\",\n    \"publicationDate\": \"2025-05-01\",\n    \"issueNumber\": 99,\n    \"authorIds\": []\n  }\n]"
+				},
+				"url": {
+					"raw": "localhost:8080/magazines/bulk",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"magazines",
+						"bulk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Author",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"J.K. Rowling\",\n  \"birthDate\": \"1965-07-31\",\n  \"nationality\": \"British\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/authors",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"authors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Authors",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/authors",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"authors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Book",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Harry Potter and the Philosopher's Stone\",\n  \"publicationDate\": \"1997-06-26\",\n  \"isbn\": \"9780747532699\",\n  \"authorId\": 1\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/books",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Magazine",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"National Geographic\",\n  \"publicationDate\": \"2024-01-01\",\n  \"issueNumber\": 88,\n  \"authorIds\": [1]\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/magazines",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"magazines"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Publications (Paginated)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/publications?page=0&size=10",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"publications"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Publications by Title",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/publications?title=Harry",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"publications"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "Harry"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Book by ISBN",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/books/isbn/9780747532699",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"books",
+						"isbn",
+						"9780747532699"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
