@@ -10,9 +10,10 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Publication {
+@DiscriminatorColumn(name = "type")
+public abstract class Publication {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title;
