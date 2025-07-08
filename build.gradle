@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'jacoco'
     id 'org.springframework.boot' version '3.5.3'
     id 'io.spring.dependency-management' version '1.1.7'
 }
@@ -44,4 +45,22 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+jacoco {
+    toolVersion = "0.8.11" // latest version as of now
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport // Run report after tests
+}
+
+jacocoTestReport {
+    dependsOn test // tests must run first
+    reports {
+        xml.required = true
+        html.required = true
+        csv.required = false
+    }
 }
