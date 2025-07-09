@@ -69,7 +69,7 @@ Built using Spring Boot, PostgreSQL, and Java 21.
 
 #### 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/quill-api.git
+git clone https://github.com/SaberOueslati943/quill-api.git
 cd quill-api
 ```
 
