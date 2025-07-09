@@ -116,6 +116,19 @@ http://localhost:8080/swagger-ui/index.html
 
 ---
 
+## 💡 Web UI Access
+
+After starting the application, you can view publications in the browser:
+
+```
+http://localhost:8080/web/publications
+```
+
+- Supports search by title
+- Displays both books and magazines
+
+---
+
 ### 📫 Postman Collection
 
 A complete [Postman collection](./postman/Quill_API_Collection.json) is included with:
