@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/app.ts"],
+  "sourcesContent": ["\n    .app {\n      min-height: 100vh;\n      background: #f9fafb;\n    }\n\n    .main-content {\n      min-height: calc(100vh - 64px);\n    }\n  "],
+  "mappings": ";AACI,CAAA;AACE,cAAA;AACA,cAAA;;AAGF,CAAA;AACE,cAAA,KAAA,MAAA,EAAA;;",
+  "names": []
+}

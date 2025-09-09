@@ -1,0 +1,55 @@
+<div class="home-container">
+  <div class="hero-section">
+    <h1 class="hero-title">Welcome to Quill</h1>
+    <p class="hero-subtitle">Discover and manage your favorite books and magazines</p>
+  </div>
+
+  <div class="publications-section">
+    <h2 class="section-title">Recent Publications</h2>
+    
+    <div class="publications-grid">
+      <div *ngFor="let publication of publications" class="publication-card">
+        <div class="publication-header">
+          <div class="publication-type" [class.book]="publication.type === 'BOOK'" [class.magazine]="publication.type === 'MAGAZINE'">
+            <span class="type-icon">{{ publication.type === 'BOOK' ? '📖' : '📰' }}</span>
+            <span class="type-text">{{ publication.type | titlecase }}</span>
+          </div>
+          <div class="publication-date">{{ publication.publicationDate | date:'MMM d, y' }}</div>
+        </div>
+        
+        <h3 class="publication-title">{{ publication.title }}</h3>
+        
+        <div class="publication-footer">
+          <span class="publication-id">ID: {{ publication.id }}</span>
+        </div>
+      </div>
+    </div>
+    
+    <div *ngIf="totalPublications === 0" class="empty-state">
+      <div class="empty-icon">📚</div>
+      <h3>No publications yet</h3>
+      <p>Add your first book or magazine to get started</p>
+    </div>
+  </div>
+
+  <div class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">{{ totalPublications }}</div>
+        <div class="stat-label">Total Publications</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">{{ getBookCount() }}</div>
+        <div class="stat-label">Books</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">{{ getMagazineCount() }}</div>
+        <div class="stat-label">Magazines</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">{{ authors.length }}</div>
+        <div class="stat-label">Authors</div>
+      </div>
+    </div>
+  </div>
+</div>
