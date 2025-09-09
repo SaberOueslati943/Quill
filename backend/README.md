@@ -69,7 +69,7 @@ Built using Spring Boot, PostgreSQL, and Java 21.
 
 #### 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/quill-api.git
+git clone https://github.com/SaberOueslati943/quill-api.git
 cd quill-api
 ```
 
@@ -113,6 +113,19 @@ http://localhost:8080/swagger-ui/index.html
 ```
 
 > Swagger UI is included via `springdoc-openapi` (if enabled).
+
+---
+
+## 💡 Web UI Access
+
+After starting the application, you can view publications in the browser:
+
+```
+http://localhost:8080/web/publications
+```
+
+- Supports search by title
+- Displays both books and magazines
 
 ---
 
