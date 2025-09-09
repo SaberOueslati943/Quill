@@ -1,0 +1,70 @@
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: quill-postgres
+    environment:
+      POSTGRES_DB: quill_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - quill-network
+
+  # Spring Boot Backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: quill-backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/quill_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - quill-network
+
+  # Angular Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: quill-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - quill-network
+
+  # Playwright Tests
+  playwright:
+    build:
+      context: ./playwright
+      dockerfile: Dockerfile
+    container_name: quill-playwright
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - quill-network
+    environment:
+      - PLAYWRIGHT_BASE_URL=http://backend:8080
+      - PLAYWRIGHT_FRONTEND_URL=http://frontend:80
+    profiles:
+      - testing
+
+volumes:
+  postgres_data:
+
+networks:
+  quill-network:
+    driver: bridge

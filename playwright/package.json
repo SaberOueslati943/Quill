@@ -1,0 +1,26 @@
+{
+  "name": "quill-playwright-tests",
+  "version": "1.0.0",
+  "description": "Playwright tests for Quill application",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:api": "playwright test --grep @api",
+    "test:ui-tests": "playwright test --grep @ui",
+    "test:report": "playwright show-report",
+    "install:browsers": "playwright install",
+    "install:deps": "playwright install-deps"
+  },
+  "keywords": ["playwright", "testing", "e2e", "api"],
+  "author": "Saber Oueslati",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.44.0"
+  },
+  "dependencies": {
+    "com.microsoft.playwright": "^1.44.0"
+  }
+}

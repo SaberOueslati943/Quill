@@ -1,0 +1,10 @@
+build/
+.gradle/
+HELP.md
+*.iml
+.idea/
+.vscode/
+*.log
+test-results/
+playwright-report/
+playwright/.cache/

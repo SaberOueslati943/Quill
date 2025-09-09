@@ -9,7 +9,8 @@ public abstract class BaseApiTest {
 
     static Playwright playwright;
     static APIRequestContext request;
-    static final String BASE_URL = "http://localhost:8080";
+    static final String BASE_URL = System.getProperty("playwright.base.url", 
+        System.getenv().getOrDefault("PLAYWRIGHT_BASE_URL", "http://localhost:8080/api"));
 
     @BeforeAll
     static void globalSetup() {

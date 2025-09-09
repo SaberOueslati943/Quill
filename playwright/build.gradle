@@ -1,0 +1,90 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+
+group = 'com.saberoueslati.quill'
+version = '1.0.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Playwright for Java
+    implementation 'com.microsoft.playwright:playwright:1.44.0'
+    
+    // JUnit 5 for testing
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.1'
+    
+    // Assertions
+    testImplementation 'org.assertj:assertj-core:3.25.1'
+    
+    // HTTP client for API tests
+    testImplementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+    }
+    systemProperty 'playwright.headless', 'true'
+    systemProperty 'playwright.browser', 'chromium'
+}
+
+jacoco {
+    toolVersion = "0.8.11"
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+        html.required = true
+        csv.required = false
+    }
+}
+
+// Task to run Playwright tests
+task playwrightTest(type: Test) {
+    group = 'verification'
+    description = 'Run Playwright tests'
+    useJUnitPlatform()
+    systemProperty 'playwright.headless', 'true'
+    systemProperty 'playwright.browser', 'chromium'
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+    }
+}
+
+// Task to run API tests only
+task apiTest(type: Test) {
+    group = 'verification'
+    description = 'Run Playwright API tests only'
+    useJUnitPlatform()
+    include '**/api/**'
+    systemProperty 'playwright.headless', 'true'
+    systemProperty 'playwright.browser', 'chromium'
+}
+
+// Task to run UI tests only
+task uiTest(type: Test) {
+    group = 'verification'
+    description = 'Run Playwright UI tests only'
+    useJUnitPlatform()
+    include '**/ui/**'
+    systemProperty 'playwright.headless', 'false'
+    systemProperty 'playwright.browser', 'chromium'
+}
