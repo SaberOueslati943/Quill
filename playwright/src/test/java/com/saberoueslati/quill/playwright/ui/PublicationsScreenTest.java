@@ -4,6 +4,7 @@ import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
+import com.microsoft.playwright.junit.UsePlaywright;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -11,24 +12,14 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+@UsePlaywright
 public class PublicationsScreenTest {
 
-    static Playwright playwright;
     static final String FRONTEND_URL = System.getProperty("playwright.frontend.url", 
         System.getenv().getOrDefault("PLAYWRIGHT_FRONTEND_URL", "http://localhost:80"));
 
-    @BeforeAll
-    static void init() {
-        playwright = Playwright.create();
-    }
-
-    @AfterAll
-    static void close() {
-        playwright.close();
-    }
-
     @Test
-    void testSearchOnAllBrowsers() {
+    void testSearchOnAllBrowsers(Playwright playwright) {
         List<BrowserType> browsers = List.of(
                 playwright.chromium(),
                 playwright.firefox(),
@@ -53,7 +44,7 @@ public class PublicationsScreenTest {
     }
 
     @Test
-    void testSearchOnAllBrowsersForNoExistantItem() {
+    void testSearchOnAllBrowsersForNoExistantItem(Playwright playwright) {
         List<BrowserType> browsers = List.of(
                 playwright.chromium(),
                 playwright.firefox(),
