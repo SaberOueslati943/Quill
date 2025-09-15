@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  backend:
+    environment:
+      SPRING_PROFILES_ACTIVE: staging
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/quill_db_staging
+      SPRING_DATASOURCE_USERNAME: staging_user
+      SPRING_DATASOURCE_PASSWORD: staging_pass
+    # ...existing config...
+  postgres:
+    environment:
+      POSTGRES_DB: quill_db_staging
+      POSTGRES_USER: staging_user
+      POSTGRES_PASSWORD: staging_pass
+    # ...existing config...

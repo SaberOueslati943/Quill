@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  backend:
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/quill_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    # ...existing config...
+  postgres:
+    environment:
+      POSTGRES_DB: quill_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    # ...existing config...

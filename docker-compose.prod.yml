@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  backend:
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/quill_db_prod
+      SPRING_DATASOURCE_USERNAME: prod_user
+      SPRING_DATASOURCE_PASSWORD: prod_pass
+    # ...existing config...
+  postgres:
+    environment:
+      POSTGRES_DB: quill_db_prod
+      POSTGRES_USER: prod_user
+      POSTGRES_PASSWORD: prod_pass
+    # ...existing config...

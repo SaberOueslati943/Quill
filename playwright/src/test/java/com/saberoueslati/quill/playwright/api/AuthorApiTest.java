@@ -2,7 +2,6 @@ package com.saberoueslati.quill.playwright.api;
 
 import com.microsoft.playwright.APIResponse;
 import com.microsoft.playwright.options.RequestOptions;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
