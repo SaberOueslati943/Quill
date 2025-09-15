@@ -33,6 +33,10 @@ dependencies {
     testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
 }
 
+import java.nio.file.Paths
+
+def allureResultsDir = "allure-results/${System.getenv('TEST_ENV') ?: 'dev'}"
+
 test {
     useJUnitPlatform()
     testLogging {
@@ -41,6 +45,7 @@ test {
     }
     systemProperty 'playwright.headless', 'true'
     systemProperty 'playwright.browser', 'chromium'
+    systemProperty 'allure.results.directory', allureResultsDir
 }
 
 jacoco {
@@ -63,6 +68,7 @@ task playwrightTest(type: Test) {
     useJUnitPlatform()
     systemProperty 'playwright.headless', 'true'
     systemProperty 'playwright.browser', 'chromium'
+    systemProperty 'allure.results.directory', allureResultsDir
     testLogging {
         events "passed", "skipped", "failed"
         exceptionFormat "full"
@@ -77,6 +83,7 @@ task apiTest(type: Test) {
     include '**/api/**'
     systemProperty 'playwright.headless', 'true'
     systemProperty 'playwright.browser', 'chromium'
+    systemProperty 'allure.results.directory', allureResultsDir
 }
 
 // Task to run UI tests only
@@ -87,4 +94,5 @@ task uiTest(type: Test) {
     include '**/ui/**'
     systemProperty 'playwright.headless', 'false'
     systemProperty 'playwright.browser', 'chromium'
+    systemProperty 'allure.results.directory', allureResultsDir
 }

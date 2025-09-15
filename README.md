@@ -9,7 +9,10 @@ Quill/
 ├── backend/           # Spring Boot (Java 21, Gradle)
 ├── frontend/          # Angular 20 app (built and served by Nginx container)
 ├── playwright/        # Playwright API/UI tests (Java + Playwright browsers)
-└── docker-compose.yml # Orchestration for DB, backend, frontend, tests
+├── docker-compose.yml # Base orchestration for all environments
+├── docker-compose.dev.yml      # Dev environment overrides
+├── docker-compose.staging.yml  # Staging environment overrides
+├── docker-compose.prod.yml     # Production environment overrides
 ```
 
 ## Services
@@ -27,10 +30,17 @@ Quill/
 
 ## Quick Start (Docker)
 
-1) Build and run all services
+1) Build and run all services (default: dev environment)
 ```bash
 # From the repo root
-docker-compose up --build -d
+# Dev environment
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build -d
+
+# Staging environment
+# docker-compose -f docker-compose.yml -f docker-compose.staging.yml up --build -d
+
+# Production environment
+# docker-compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d
 ```
 
 2) Open the app
@@ -81,7 +91,7 @@ Tests are separated under `playwright/` and can be run locally or via Docker.
 Make sure backend and frontend are running (via Docker or locally):
 ```bash
 # Ensure services are up
-docker-compose up -d backend frontend
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d backend frontend
 
 # Run API tests
 cd playwright
@@ -115,8 +125,47 @@ docker-compose --profile testing run --rm playwright ./gradlew uiTest
 
 Note: UI tests in Docker should run headless; the provided configuration defaults to headless in CI. If you need headed mode in Docker, run them under Xvfb or switch to a Playwright base image with X support.
 
-## Environment
-- Backend DB connection is injected via Docker Compose env vars.
+## Allure Reporting
+
+Allure results are generated in an environment-specific directory: `playwright/allure-results/<environment>`.
+
+- The environment is set via the `TEST_ENV` environment variable (e.g., `dev`, `staging`, `prod`).
+- By default, if `TEST_ENV` is not set, results go to `allure-results/dev`.
+- You can set `TEST_ENV` in your Docker Compose override files or as an environment variable when running tests.
+
+### Example: Run Playwright tests with Allure results for staging
+```bash
+# Set environment variable
+export TEST_ENV=staging
+
+# Run tests
+./gradlew test
+
+# Results will be in playwright/allure-results/staging
+```
+
+### Generate and view Allure report
+1. Install Allure CLI (if not already installed):
+   ```bash
+   npm install -g allure-commandline --save-dev
+   # or
+   brew install allure
+   ```
+2. Generate the report:
+   ```bash
+   allure generate playwright/allure-results/<environment> -o playwright/allure-report/<environment> --clean
+   ```
+3. Open the report in your browser:
+   ```bash
+   allure open playwright/allure-report/<environment>
+   ```
+
+You can repeat this for each environment to keep reports separated and organized.
+
+## Environment Configuration
+- Backend DB connection and other secrets are injected via Docker Compose env vars and Spring profiles:
+  - `application-dev.properties`, `application-staging.properties`, `application-prod.properties` in `backend/src/main/resources`
+  - Select profile with `SPRING_PROFILES_ACTIVE` (set in Compose override files)
 - Frontend proxies `/api` to the backend container name `backend`.
 - Playwright tests accept env vars:
   - `PLAYWRIGHT_BASE_URL` (default: `http://localhost:8080/api`)
