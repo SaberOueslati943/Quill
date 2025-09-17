@@ -51,7 +51,7 @@ public class PublicationApiTest extends BaseApiTest {
         createdBookIds.add(bookId);
 
         // Test: Search via title param
-        APIResponse searchResponse = request.get(BASE_URL + "/publications?title=Searchable");
+        APIResponse searchResponse = request.get(BASE_URL + "/publications/search?title=Searchable");
         assertEquals(200, searchResponse.status());
         assertTrue(searchResponse.text().contains("Searchable Book"));
     }
